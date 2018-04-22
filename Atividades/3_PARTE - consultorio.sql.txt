@@ -1,0 +1,73 @@
+CREATE TABLE paciente (
+	nif varchar PRIMARY KEY,
+	nome varchar,
+	morada varchar
+);
+ 
+CREATE TABLE medico (
+	bi varchar PRIMARY KEY,
+	nome varchar,
+	morada varchar
+);
+ 
+CREATE TABLE doenca (
+	ref integer PRIMARY KEY,
+	designacao varchar
+);
+ 
+CREATE TABLE consulta (
+	num integer PRIMARY KEY,
+	DATA date,
+	sala integer,
+	bi varchar REFERENCES medico,
+	nif varchar REFERENCES paciente
+);
+ 
+CREATE TABLE diagnosticada (
+	ref integer REFERENCES doenca,
+	num integer REFERENCES consulta,
+	PRIMARY KEY (ref, num)
+);
+ 
+INSERT INTO medico VALUES ('99030', 'João Silva', 'Rua das Traseira, 32');
+INSERT INTO medico VALUES ('12312', 'Teresa Pereira', 'Rua das Frente, 542');
+INSERT INTO medico VALUES ('43642', 'Joaquim Azevedo', 'Rua Fireita, 236');
+ 
+INSERT INTO paciente VALUES ('12345', 'Carlos Tavares', 'Rua do Campo Azul, 32');
+INSERT INTO paciente VALUES ('45643', 'Maria Pinto', 'Rua do Campo Vermelho, 542');
+INSERT INTO paciente VALUES ('23613', 'Miguel Santos', 'Rua do Campo Verde, 236');
+ 
+INSERT INTO consulta VALUES (456, '2007-01-01', 190, '99030', '12345');
+INSERT INTO consulta VALUES (457, '2007-01-01', 187, '99030', '12345');
+INSERT INTO consulta VALUES (458, '2007-01-01', 190, '12312', '23613');
+INSERT INTO consulta VALUES (459, '2007-01-01', 190, '99030', '45643');
+INSERT INTO consulta VALUES (460, '2007-01-01', 187, '99030', '45643');
+INSERT INTO consulta VALUES (461, '2007-01-01', 187, '12312', '12345');
+INSERT INTO consulta VALUES (462, '2007-01-01', 204, '12312', '23613');
+INSERT INTO consulta VALUES (463, '2007-01-01', 187, '99030', '45643');
+INSERT INTO consulta VALUES (464, '2007-01-02', 190, '12312', '12345');
+INSERT INTO consulta VALUES (465, '2007-01-02', 190, '12312', '45643');
+INSERT INTO consulta VALUES (466, '2007-01-03', 190, '43642', '12345');
+INSERT INTO consulta VALUES (467, '2007-01-03', 190, '99030', '12345');
+ 
+INSERT INTO doenca VALUES (1, 'Varicela');
+INSERT INTO doenca VALUES (2, 'Sarampo');
+INSERT INTO doenca VALUES (3, 'Constipação');
+ 
+INSERT INTO diagnosticada (num, ref) VALUES (456, 1);
+INSERT INTO diagnosticada (num, ref) VALUES (456, 2);
+INSERT INTO diagnosticada (num, ref) VALUES (457, 2);
+INSERT INTO diagnosticada (num, ref) VALUES (457, 3);
+INSERT INTO diagnosticada (num, ref) VALUES (458, 3);
+INSERT INTO diagnosticada (num, ref) VALUES (459, 2);
+INSERT INTO diagnosticada (num, ref) VALUES (460, 2);
+INSERT INTO diagnosticada (num, ref) VALUES (460, 3);
+INSERT INTO diagnosticada (num, ref) VALUES (460, 1);
+INSERT INTO diagnosticada (num, ref) VALUES (461, 2);
+INSERT INTO diagnosticada (num, ref) VALUES (462, 3);
+INSERT INTO diagnosticada (num, ref) VALUES (463, 1);
+INSERT INTO diagnosticada (num, ref) VALUES (464, 2);
+INSERT INTO diagnosticada (num, ref) VALUES (464, 3);
+INSERT INTO diagnosticada (num, ref) VALUES (465, 1);
+INSERT INTO diagnosticada (num, ref) VALUES (466, 3);
+INSERT INTO diagnosticada (num, ref) VALUES (467, 2);

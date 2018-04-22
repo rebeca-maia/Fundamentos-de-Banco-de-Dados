@@ -1,0 +1,60 @@
+CREATE TABLE tipoquarto (
+id integer PRIMARY KEY,
+designacao varchar(256) NOT NULL,
+lotacao integer NOT NULL
+);
+
+CREATE TABLE quarto (
+num integer PRIMARY KEY,
+andar integer NOT NULL,
+idtipo integer REFERENCES tipoquarto
+);
+
+CREATE TABLE cliente (
+ref integer PRIMARY KEY,
+nome varchar(256) NOT NULL,
+cidade varchar(256) NOT NULL,
+pais varchar(256) NOT NULL
+);
+
+CREATE TABLE reserva (
+num integer REFERENCES quarto,
+ref integer REFERENCES cliente,
+data_e date NOT NULL,
+data_s date NOT NULL,
+regime char(2) NOT NULL,
+numeropessoas integer NOT NULL
+);
+
+INSERT INTO tipoquarto values(1, 'Single', 1);
+INSERT INTO tipoquarto values(2, 'Duplo', 2);
+INSERT INTO tipoquarto values(3, 'Suite', 4);
+INSERT INTO tipoquarto values(4, 'Suite Presidencial', 4);
+INSERT INTO quarto values(11, 1, 1);
+INSERT INTO quarto values(12, 1, 1);
+INSERT INTO quarto values(13, 1, 1);
+INSERT INTO quarto values(14, 1, 2);
+INSERT INTO quarto values(15, 1, 2);
+INSERT INTO quarto values(21, 2, 1);
+INSERT INTO quarto values(22, 2, 1);
+INSERT INTO quarto values(23, 2, 2);
+INSERT INTO quarto values(24, 2, 2);
+INSERT INTO quarto values(31, 3, 3);
+INSERT INTO quarto values(32, 3, 3);
+INSERT INTO quarto values(33, 3, 4);
+INSERT INTO cliente values(100, 'Joao', 'Porto', 'Portugal');
+INSERT INTO cliente values(101, 'Carlos', 'Lisboa', 'Portugal');
+INSERT INTO cliente values(102, 'Maria', 'Porto', 'Portugal');
+INSERT INTO cliente values(103, 'Fritz', 'Munique', 'Alemanha');
+INSERT INTO cliente values(104, 'Teresa', 'Coimbra', 'Portugal');
+INSERT INTO cliente values(105, 'John', 'Londres', 'Inglaterra');
+INSERT INTO reserva values (21, 100, '2007-01-02', '2007-01-03', 'PA', 1);
+INSERT INTO reserva values (22, 101, '2007-01-14', '2007-01-17', 'MP', 1);
+INSERT INTO reserva values (24, 102, '2007-01-08', '2007-01-12', 'PC', 2);
+INSERT INTO reserva values (31, 103, '2007-01-04', '2007-01-05', 'MP', 2);
+INSERT INTO reserva values (33, 104, '2007-01-18', '2007-01-19', 'MP', 3);
+INSERT INTO reserva values (11, 101, '2007-01-02', '2007-01-07', 'PC', 1);
+INSERT INTO reserva values (14, 105, '2007-01-09', '2007-01-11', 'PA', 2);
+INSERT INTO reserva values (31, 101, '2007-02-05', '2007-01-15', 'PA', 3);
+INSERT INTO reserva values (21, 102, '2007-01-20', '2007-01-25', 'MP', 1);
+INSERT INTO reserva values (22, 103, '2007-02-20', '2007-01-22', 'PC', 1);
